@@ -42,7 +42,6 @@ printf("%s \n",str4);
 char *ptr9=strtok(str4," ,");  //Zweites Argument beinhaltet
 printf("%s \n",str4);
 char *ptr10=strtok(NULL," ,");  //ein Leerzeichen und ein Komma
-printf(" \n"]);
 char *ptr11=strtok(str4," ,");
 char *ptr12=strtok(NULL," ,");
 
@@ -53,14 +52,17 @@ printf("%p %p \n",str4,ptr9);
 printf("%p %p \n",str4,ptr10);
 printf("%p %p \n",str4,ptr11);
 printf("%p %p \n",str4,ptr12);
+
+char globalString[]="Ich bin ein sos String";
+printf("%s\n", mystrtok(globalString, " "));
 }
 
 //3------------------------------------------------
 
 char *mystrstr(char *haystack, char *needle) {
 
-    size_t haystackSize = strlen(haystack); // 5
-    size_t needleSize = strlen(needle); // 1
+    size_t haystackSize = strlen(haystack);
+    size_t needleSize = strlen(needle);
 
     if(haystackSize < needleSize){
         return "NULL";
@@ -103,8 +105,22 @@ char *mystrstr(char *haystack, char *needle) {
 
 }
 //4------------------------------------------------
+char *global = NULL;
 
 char *mystrtok(char *str, const char *delim){
+
+    if( str != NULL){
+        global = str;
+        for(int i = 0; global[i] != '\0'; i++) {
+
+        }
+        return NULL;
+    }else{
+        for(int i = 0; global[i] != '\0'; i++) {
+
+        } 
+    }
+    return NULL;
 
 }
 
