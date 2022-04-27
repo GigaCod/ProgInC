@@ -2,7 +2,7 @@
 #include <string.h>
 
 char *mystrstr(char *haystack, char *needle);
-
+char *mystrtok(char *str, const char *delim);
 
 int main(int argc,char *argv[])
 {
@@ -38,8 +38,11 @@ char *ptr6=strtok(str3," ");
 char *ptr7=strtok(NULL," ");
 char *ptr8=strtok(NULL," ");
 char str4[]="hello,world ich";
+printf("%s \n",str4);
 char *ptr9=strtok(str4," ,");  //Zweites Argument beinhaltet
+printf("%s \n",str4);
 char *ptr10=strtok(NULL," ,");  //ein Leerzeichen und ein Komma
+printf(" \n"]);
 char *ptr11=strtok(str4," ,");
 char *ptr12=strtok(NULL," ,");
 
@@ -100,6 +103,11 @@ char *mystrstr(char *haystack, char *needle) {
 
 }
 //4------------------------------------------------
+
+char *mystrtok(char *str, const char *delim){
+
+}
+
 
 
 
