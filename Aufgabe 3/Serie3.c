@@ -31,7 +31,7 @@ printf("%p %p \n",src,ptr3);
 printf("%p %p \n",src,ptr4);
 printf("%p %p \n",src,ptr5);
 */
-printf("%p\n",mystrstr(src2, "absd"));
+//printf("%p\n",mystrstr(src2, "absd"));
 
 
 char str3[]="Hello World";
@@ -52,18 +52,18 @@ printf("%p %p \n",str4,ptr10);
 printf("%p %p \n",str4,ptr11);
 printf("%p %p \n",str4,ptr12);
 */
-char globalString[]="Ich bin ein sos String";
-char globalString2[]="Ich bin ein sos String";
+char globalString[]="Ich bin ein String";
+char globalString2[]="Ich bin ein String";
 
 printf("------------------ \n");
 printf("%s \n", mystrtok(globalString, " "));
 printf("%s \n", mystrtok(NULL, " "));
 printf("%s \n", mystrtok(NULL, " "));
-printf("%s \n", mystrtok(NULL, " "));
-printf("%s \n", mystrtok(NULL, " "));
-printf("%s \n", mystrtok(NULL, " "));
-printf("%s \n", mystrtok(NULL, " "));
-
+//printf("%s \n", mystrtok(NULL, " "));
+//printf("%s \n", mystrtok(NULL, " "));
+//printf("%s \n", mystrtok(NULL, " "));
+//printf("%s \n", mystrtok(NULL, " "));
+/*
 printf("------------------ \n");
 printf("%s \n", strtok(globalString2, " "));
 printf("%s \n", strtok(NULL, " "));
@@ -72,7 +72,7 @@ printf("%s \n", strtok(NULL, " "));
 printf("%s \n", strtok(NULL, " "));
 printf("%s \n", strtok(NULL, " "));
 printf("%s \n", strtok(NULL, " "));
-
+*/
 
 }
 
@@ -127,17 +127,17 @@ int checkDelimiter(char character, const char *delim){
     size_t delimSize = strlen(delim);
 
     for(int i = 0; i < delimSize; i++){
-        //printf("Charakter: %c vs ",character);
-        //printf("Charakter: %c \n",delim[i]);
         if(character == delim[i]){
-            //printf("ALARM \n");
             return 1;
         }
     }
     return 0;  
 }
-char *global = NULL;
 
+char *global;
+// Ich bin ein String
+// 1. Erwartet "Ich" und "bin ein String"
+//
 char *mystrtok(char *str, const char *delim){
 
     size_t delimSize = strlen(delim);
@@ -145,23 +145,31 @@ char *mystrtok(char *str, const char *delim){
 
     if( str != NULL){
         global = str;
+        //printf("Global: %s \n", global);
     }else{
         str = global;
     }
 
-    while(!checkDelimiter(global[counter], delim) && global[counter] != '\0') {
+    while(checkDelimiter(global[counter], delim) && global[counter] != '\0') {
         counter++;
     }
+    //printf("Counter Nach Delimeter Zähler: %i \n", counter);
+
+    while(!checkDelimiter(global[counter], delim) && global[counter] != '\0'){
+        counter++;
+    }
+    //printf("Counter Nach Buchstaben Zähler: %i \n", counter);
 
     if(global[counter] != '\0'){
         global[counter] = '\0';
         counter++;
         global = global + counter;
+        printf("Global: %s \n", global);
         while(str[counter] != '\0') {
             str[counter] = '\0';
             counter++;
         }
-        printf("String: %s \n",str);
+        printf("Global: %s \n", global);
         return str;
     }else{
         global = global + counter;
@@ -169,6 +177,7 @@ char *mystrtok(char *str, const char *delim){
             return str;
         } 
     }
+    
     return NULL;
 
 }
