@@ -56,23 +56,25 @@ char globalString[]="Ich bin ein String";
 char globalString2[]="Ich bin ein String";
 
 printf("------------------ \n");
-printf("%s \n", mystrtok(globalString, " "));
-printf("%s \n", mystrtok(NULL, " "));
-printf("%s \n", mystrtok(NULL, " "));
-//printf("%s \n", mystrtok(NULL, " "));
-//printf("%s \n", mystrtok(NULL, " "));
-//printf("%s \n", mystrtok(NULL, " "));
-//printf("%s \n", mystrtok(NULL, " "));
-/*
+printf("%s \n", mystrtok(globalString, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+printf("%s \n", mystrtok(NULL, " i"));
+
 printf("------------------ \n");
-printf("%s \n", strtok(globalString2, " "));
-printf("%s \n", strtok(NULL, " "));
-printf("%s \n", strtok(NULL, " "));
-printf("%s \n", strtok(NULL, " "));
-printf("%s \n", strtok(NULL, " "));
-printf("%s \n", strtok(NULL, " "));
-printf("%s \n", strtok(NULL, " "));
-*/
+printf("%s \n", strtok(globalString2, " i"));
+printf("%s \n", strtok(NULL, " i"));
+printf("%s \n", strtok(NULL, " i"));
+printf("%s \n", strtok(NULL, " i"));
+printf("%s \n", strtok(NULL, " i"));
+printf("%s \n", strtok(NULL, " i"));
+printf("%s \n", strtok(NULL, " i"));
+
 
 }
 
@@ -134,7 +136,7 @@ int checkDelimiter(char character, const char *delim){
     return 0;  
 }
 
-char *global;
+char *global = NULL;
 // Ich bin ein String
 // 1. Erwartet "Ich" und "bin ein String"
 //
@@ -145,7 +147,6 @@ char *mystrtok(char *str, const char *delim){
 
     if( str != NULL){
         global = str;
-        //printf("Global: %s \n", global);
     }else{
         str = global;
     }
@@ -153,23 +154,15 @@ char *mystrtok(char *str, const char *delim){
     while(checkDelimiter(global[counter], delim) && global[counter] != '\0') {
         counter++;
     }
-    //printf("Counter Nach Delimeter Zähler: %i \n", counter);
 
     while(!checkDelimiter(global[counter], delim) && global[counter] != '\0'){
         counter++;
     }
-    //printf("Counter Nach Buchstaben Zähler: %i \n", counter);
 
     if(global[counter] != '\0'){
         global[counter] = '\0';
         counter++;
         global = global + counter;
-        printf("Global: %s \n", global);
-        while(str[counter] != '\0') {
-            str[counter] = '\0';
-            counter++;
-        }
-        printf("Global: %s \n", global);
         return str;
     }else{
         global = global + counter;
