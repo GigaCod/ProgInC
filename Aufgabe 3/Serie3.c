@@ -95,7 +95,7 @@ char *mystrstr(char *haystack, char *needle) {
     int wordFound = 0;
     int needlePos = 0;
     int tempHaystackPos = 0;
-
+    //strstr("000000abc","abcde")
     for(int haystackPos = 0; haystackPos < haystackSize; haystackPos++){
         if(haystack[haystackPos] == needle[needlePos] && needleSize + haystackPos <= haystackSize){
             tempHaystackPos = haystackPos;
@@ -111,6 +111,7 @@ char *mystrstr(char *haystack, char *needle) {
                     wordFound = 0;
                     needlePos = 0;
                     needleCounter = needleSize;
+                    break;
                 }
             }
         }else{
@@ -125,7 +126,7 @@ char *mystrstr(char *haystack, char *needle) {
 }
 //4------------------------------------------------
 
-int checkDelimiter(char character, const char *delim){
+static int checkDelimiter(char character, const char *delim){
     size_t delimSize = strlen(delim);
 
     for(int i = 0; i < delimSize; i++){
@@ -151,10 +152,12 @@ char *mystrtok(char *str, const char *delim){
         str = global;
     }
 
+//strtok("aa0123_a","a")
+//        |
+    strchr(delim,global[counter])
     while(checkDelimiter(global[counter], delim) && global[counter] != '\0') {
         counter++;
     }
-
     while(!checkDelimiter(global[counter], delim) && global[counter] != '\0'){
         counter++;
     }
