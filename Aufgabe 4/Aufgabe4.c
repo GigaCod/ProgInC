@@ -17,7 +17,7 @@ int dump(void *start, size_t len, int width, DUMP_MODE mode);
 void stream_open (size_t alloc_size);
 void stream_close(void);
 int  stream_set  (char *str);
-//__ stream_get  (____);
+char *stream_get();
 
 #endif
 /*---------------------------------------------------------------------------------------------*/
