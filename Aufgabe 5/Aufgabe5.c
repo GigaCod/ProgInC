@@ -120,6 +120,16 @@ e = 180 Offset
 f = 184 Offset
 Und f nimmt die restlichen 44 Byte
  */
+
+
+//e 
+// Man könnte anonyme Structs nutzen, dadurch hat man weniger "Tipparbeit"
+
+
+//f 
+int var = 1;
+//Der Aufruf wäre:
+k.g.e == var;
 }
 
 void debugMain(struct mainstruct ms){
