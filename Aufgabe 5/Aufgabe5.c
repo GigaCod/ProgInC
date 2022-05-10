@@ -70,7 +70,7 @@ int main(int argc,char *argv[])
     test1.z = 3;
     struct xyz2 test2;
     test2 = test1;
-    printf("Zahl = %i \n",test2.x ); // Gleich geht
+    //printf("Zahl = %i \n",test2.x ); // Gleich geht
     //Unterschiedlich: var2 = xyz4; führt zu Fehlern geht nicht
 
 // e
@@ -81,7 +81,7 @@ int main(int argc,char *argv[])
     init4 = (struct xyz4) {1,2,3};
 
 //------------------------------ 2 --------------------------------
-
+/*
 struct mainstruct initStruct = {
     1,
     {2,3,4,5,6,7,8,9,10,11}, 
@@ -89,7 +89,7 @@ struct mainstruct initStruct = {
     15, 16,
     17, "Test4"
 };
-
+*/
 struct mainstruct k = {
     .a = 1,
     .b = {2,3,4,5,6,7,8,9,10,11}, 
@@ -106,8 +106,7 @@ struct mainstruct k = {
 
 };
 
-printf("%i\n");
-debugMain(initStruct);
+//debugMain(initStruct);
 debugMain(k); 
 
 // k benötigt 228 bytes
@@ -120,25 +119,7 @@ d = 176 Offset
 e = 180 Offset
 f = 184 Offset
 Und f nimmt die restlichen 44 Byte
- 
-
-/*
-struct sub1struct {
-    int integer;
-    char str[40];
-};
-
-struct mainstruct {
-    int a;
-    int b[10];
-    struct sub1struct c[3];
-    struct sub2struct {
-        int d;
-        int e;
-        struct sub1struct f;
-    } g;
-}h,i[2];
-*/
+ */
 }
 
 void debugMain(struct mainstruct ms){
@@ -165,6 +146,17 @@ void debugMain(struct mainstruct ms){
     printf("---------ENDE--------\n\n");
 }
 
+//3
+/*
+Gemeinsamkeiten:
+- Verkettung ist möglich
+- Attribute können abgespeichert werden
+- Zugriff kann auf direkten Weg erfolgen, sobald ein Attribut public ist 
 
+Unterschiede:
+- In Structs können keine Funktionen gespeichert/definiert werden.
+- Attribute in Strukts sind defaultmässig alle public
+
+*/
 
 
