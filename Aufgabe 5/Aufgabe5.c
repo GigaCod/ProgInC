@@ -106,8 +106,21 @@ struct mainstruct k = {
 
 };
 
+printf("%i\n");
 debugMain(initStruct);
-debugMain(k);
+debugMain(k); 
+
+// k benötigt 228 bytes
+
+/*
+a = 0 Offset
+b = 4 Offset
+c = 44 Offset
+d = 176 Offset
+e = 180 Offset
+f = 184 Offset
+Und f nimmt die restlichen 44 Byte
+ 
 
 /*
 struct sub1struct {
