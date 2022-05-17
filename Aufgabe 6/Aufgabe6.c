@@ -106,13 +106,30 @@ int bb_solve(struct bb *root)
     return -1;
 }
     //Aufgabe 3
-struct bb* bb_add(enum op op,union value value,
-    struct bb *topl,struct bb *topr)
-    {
+struct bb* bb_add(enum op op,union value value,struct bb *topl,struct bb *topr){
+    
+    struct bb *result = (struct bb *) malloc(sizeof(struct bb));
+
+    if(result == NULL){
+        return NULL;
+    }
+    result->op1 = topl; 
+    result->op2 = topr;
+    result->op = op;
+    result->value = value;
+    
+    return result;
 }
     //Aufgabe 4
 void bb_free(struct bb *root)
 {
+    if(root->op1 != NULL){
+        bb_free(root->op1);    
+    }
+    if(root->op2 != NULL){
+        bb_free(root->op2);
+    }
+    free(root);
 }
 int main(void)
 {
@@ -124,10 +141,15 @@ bb_debug(&new,ND);
 printf("\nsolve=%d\n",bb_solve(&new));
 //Aufgabe 3
 //Dynamischer Baum für: '2+3*7'
-//struct bb *root=bb_add(PLUS ,(union value){0},NULL,NULL);
-//bb_debug(root,ND);
-//printf("\nsolve=%d\n",bb_solve(root));
+struct bb *two=bb_add(VALUEINT ,(union value){2},NULL,NULL);
+struct bb *three=bb_add(VALUEINT ,(union value){3},NULL,NULL);
+struct bb *seven=bb_add(VALUEINT ,(union value){7},NULL,NULL);
+
+struct bb *multi=bb_add(MAL ,(union value){0},three,seven);
+struct bb *root=bb_add(PLUS ,(union value){0},two,multi);
+bb_debug(root,ND);
+printf("\nsolve=%d\n",bb_solve(root));
 //Aufgabe 4
-//db_free(root);
+bb_free(root);
 return 0;
 }
