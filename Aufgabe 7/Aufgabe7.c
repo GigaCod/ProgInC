@@ -86,6 +86,26 @@ int vl_addback(const char *value)
 }
 char *vl_getback(void)
 {
+    if(head == NULL){
+        return NULL;
+    }else if(head->next == NULL){
+        char *copy = malloc(strlen(head->data) + 1);
+        strcpy(copy,head->data);
+        free(head);
+        head = NULL;
+        return copy;
+    }else{
+        vl_t *lastVl = head-> next;
+        while(lastVl->next != NULL){
+            lastVl = lastVl->next;
+        }
+        char *copy = malloc(strlen(lastVl->data)+1);
+        strcpy(copy,lastVl->data );
+        free(lastVl);
+        lastVl = NULL;
+        return copy;
+    }
+
     return NULL;
 }
  
