@@ -25,6 +25,19 @@ struct bb operand3b={&operand3a,NULL     ,SHORT2INT ,{0}};
 struct bb op1=      {&operand1 ,&operand2,PLUS      ,{0}};
 struct bb op2=      {&op1    ,&operand3b,PLUS     ,{0}};
 enum leftright {ND,LEFT,RIGHT};
+//Aufgabe 2 //Statischer Baum für: '9‐5*6*(7+8)‐9'
+struct bb neun=     {NULL        ,NULL     ,VALUEINT  ,{9}};
+struct bb sieben=   {NULL        ,NULL     ,VALUEINT  ,{7}};
+struct bb acht=     {NULL        ,NULL     ,VALUEINT  ,{8}};
+struct bb fuenf=    {NULL        ,NULL     ,VALUEINT  ,{5}};
+struct bb sechs=    {NULL        ,NULL     ,VALUEINT  ,{6}};
+
+struct bb nebenMul1= {&fuenf      ,&sechs     , MAL  ,{0}};
+struct bb nebenPlus1= {&sieben      ,&acht      , PLUS  ,{0}};
+struct bb hauptMul= {&nebenMul1  ,&nebenPlus1,  MAL  ,{0}};
+struct bb erstesMinus= {&neun      ,&hauptMul      , MINUS  ,{0}};
+struct bb new= {&erstesMinus      ,&neun      , MINUS  ,{0}};
+
 
 void bb_debug(struct bb *root,enum leftright lr)
 {
@@ -70,14 +83,32 @@ int bb_solve(struct bb *root)
 {
     switch(root->op) {
     case NOP:
-    break;
+    return 0;
+    case VALUEINT:
+    return root -> value.valuei;
+    case VALUESHORT:
+    return root -> value.values;
+    case VALUECHAR:
+    return root -> value.valuec;
+    case PLUS:
+    return bb_solve(root -> op1) + bb_solve(root -> op2);
+    case MINUS:
+    return bb_solve(root -> op1) - bb_solve(root -> op2);
+    case GETEILT:
+    return bb_solve(root -> op1) / bb_solve(root -> op2);
+    case MAL:
+    return bb_solve(root -> op1) * bb_solve(root -> op2);
+    case SHORT2INT:
+    return (int) bb_solve(root -> op1);
+    case CHAR2INT:
+    return (int) bb_solve(root -> op1);
     }
     return -1;
 }
     //Aufgabe 3
 struct bb* bb_add(enum op op,union value value,
-struct bb *topl,struct bb *topr)
-{
+    struct bb *topl,struct bb *topr)
+    {
 }
     //Aufgabe 4
 void bb_free(struct bb *root)
@@ -89,8 +120,8 @@ bb_debug(&op2,ND);
 printf("\nSolve=%d\n",bb_solve(&op2));
 //Aufgabe 2
 //Statischer Baum für: '9‐5*6*(7+8)‐9'
-//bb_debug(&new,ND);
-//printf("\nsolve=%d\n",bb_solve(&new));
+bb_debug(&new,ND);
+printf("\nsolve=%d\n",bb_solve(&new));
 //Aufgabe 3
 //Dynamischer Baum für: '2+3*7'
 //struct bb *root=bb_add(PLUS ,(union value){0},NULL,NULL);
