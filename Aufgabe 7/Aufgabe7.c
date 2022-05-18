@@ -37,6 +37,15 @@ extern int signal_flag;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/*
+setf Nummer1
+setb Nummer2
+setf Nummer3
+setb Nummer4
+setf Nummer5
+debug
+*/
 typedef struct vl {
 	struct vl *next;
 	char       data[];
@@ -48,24 +57,34 @@ void vl_init(void)
 }
 void vl_close(void)
 {
-    //Liste durchgehen und allen Speicher löschen
+    while(head != NULL){
+        vl_t *temp = head;
+        head = head-> next;
+        free(temp);
+        temp = NULL;
+    }
 }
 static void vl_debug(void)
 {
     printf("------------\n");
     printf("head=%p\n",head);
-    if(head!=NULL)
+    if(head!=NULL){
         for(vl_t *ptr=head;ptr!=NULL;ptr=ptr->next)
             printf("%p: '%s'\n",ptr,ptr->data);
     
-    //Größe des benötigten Speichers berechnen
+    }
+     //Größe des benötigten Speichers berechnen
+    int amount = 0;
+    for(vl_t *ptr=head;ptr!=NULL;ptr=ptr->next)
+            amount += strlen(ptr->data) + 1 + 8; // Chars + EndeZeichen + nextptr
+    printf("Amount= %i Byte\n",amount);
 }
 int vl_addfront(const char *value)
 {
-        vl_t *newVl = (vl_t *) malloc(sizeof(vl_t)+strlen(value)+1);
-        newVl -> next = head;
-        strcpy(newVl -> data, value);
-        head = newVl;
+    vl_t *newVl = (vl_t *) malloc(sizeof(vl_t)+strlen(value)+1);
+    newVl -> next = head;
+    strcpy(newVl -> data, value);
+    head = newVl;
     return 0;
 }
 int vl_addback(const char *value)
@@ -95,14 +114,14 @@ char *vl_getback(void)
         head = NULL;
         return copy;
     }else{
-        vl_t *lastVl = head-> next;
-        while(lastVl->next != NULL){
+        vl_t *lastVl = head;
+        while(lastVl->next-> next != NULL){
             lastVl = lastVl->next;
         }
-        char *copy = malloc(strlen(lastVl->data)+1);
-        strcpy(copy,lastVl->data );
-        free(lastVl);
-        lastVl = NULL;
+        char *copy = malloc(strlen(lastVl-> next->data)+1);
+        strcpy(copy,lastVl-> next->data );
+        free(lastVl-> next);
+        lastVl-> next = NULL;
         return copy;
     }
 
