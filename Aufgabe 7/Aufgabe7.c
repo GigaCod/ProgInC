@@ -37,15 +37,6 @@ extern int signal_flag;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-/*
-setf Nummer1
-setb Nummer2
-setf Nummer3
-setb Nummer4
-setf Nummer5
-debug
-*/
 typedef struct vl {
 	struct vl *next;
 	char       data[];
@@ -76,7 +67,7 @@ static void vl_debug(void)
      //Größe des benötigten Speichers berechnen
     int amount = 0;
     for(vl_t *ptr=head;ptr!=NULL;ptr=ptr->next)
-            amount += strlen(ptr->data) + 1 + 8; // Chars + EndeZeichen + nextptr
+            amount += strlen(ptr->data) + 1 + sizeof(ptr); // Chars + EndeZeichen + nextptr
     printf("Amount= %i Byte\n",amount);
 }
 int vl_addfront(const char *value)
